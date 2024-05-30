@@ -31,7 +31,7 @@ python api/server.py
 
 ## Use docker
 ```bash
-cd docker
+wget https://raw.githubusercontent.com/Gouryella/ChatTTS-webui/main/docker/Dockerfile
 docker build -t ChatTTS_webui .
-docker run -itd --name ChatTTS_webui --gpus all -p 3000:3300  ChatTTS_webui
+docker run -itd --name ChatTTS_webui --gpus all -p 3000:3000  ChatTTS_webui
 ```
