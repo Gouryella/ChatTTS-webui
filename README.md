@@ -27,3 +27,11 @@ cd ..
 npm run dev
 python api/server.py
 ```
+
+
+## Use docker
+```bash
+cd docker
+docker build -t ChatTTS_webui .
+docker run -itd --name ChatTTS_webui --gpus all -p 3000:3300  ChatTTS_webui
+```
