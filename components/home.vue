@@ -71,7 +71,7 @@ const generate = async () => {
     console.log(voice.value);
     try {
         const response = await axios.post(
-            'http://192.168.1.69:8000/generate',
+            'http://127.0.0.1:8000/generate',
             {
                 text: text.value,
                 voice: voice.value
