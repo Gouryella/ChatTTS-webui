@@ -52,7 +52,6 @@ chat.load_models(source='local', local_path=model_path)
 async def generate_text(request: Text2Speech):
     text = request.text
     voice = request.voice
-    print(voice)
     if voice == 'man':
         torch.manual_seed(2222)
     else:
