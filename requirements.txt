@@ -1,0 +1,9 @@
+omegaconf~=2.3.0
+tqdm
+einops
+vector_quantize_pytorch
+transformers~=4.41.1
+vocos
+soundfile
+numpy
+fastapi

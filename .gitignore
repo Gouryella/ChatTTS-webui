@@ -27,3 +27,5 @@ logs
 api/models
 
 outputs
+
+package-lock.json
