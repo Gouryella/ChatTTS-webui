@@ -26,7 +26,10 @@ app.add_middleware(
 
 class Text2Speech(BaseModel):
     text: str
-    voice: str
+    voice_adj: int
+    temperature: float
+    top_p: float
+    top_k: int 
 
 model_path = os.path.join(os.path.dirname(__file__), 'models')
 model_files = [
@@ -51,16 +54,12 @@ chat.load_models(source='local', local_path=model_path)
 @app.post("/generate")
 async def generate_text(request: Text2Speech):
     text = request.text
-    voice = request.voice
-    if voice == 'man':
-        torch.manual_seed(2222)
-    else:
-       torch.manual_seed(6615)
+    torch.manual_seed(request.voice_adj)
     params_infer_code = {
         'spk_emb': chat.sample_random_speaker(),
-        'temperature': 0.1,
-        'top_P': 0.7,
-        'top_K': 20,
+        'temperature': request.temperature,
+        'top_P': request.top_p,
+        'top_K': request.top_k,
         }
 
     wavs = await asyncio.to_thread(chat.infer, text, use_decoder=True, params_infer_code=params_infer_code)
