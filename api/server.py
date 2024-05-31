@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import FileResponse
+from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import numpy as np
@@ -9,6 +9,7 @@ import sys
 import os
 import asyncio
 import torch
+from io import BytesIO
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'ChatTTS')))
 import ChatTTS
@@ -67,11 +68,11 @@ async def generate_text(request: Text2Speech):
     if audio_data.ndim == 1:
         audio_data = np.expand_dims(audio_data, axis=0)
     
-    if not os.path.exists('outputs'):
-        os.makedirs('outputs')
-    output_file = f'outputs/{datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")}.wav'
-    sf.write(output_file, audio_data.T, 24000)
-    return FileResponse(output_file, media_type='audio/wav', filename='generated_audio.wav')
+    audio_buffer = BytesIO()
+    sf.write(audio_buffer, audio_data.T, 24000, format='WAV')
+    audio_buffer.seek(0)
+    
+    return StreamingResponse(audio_buffer, media_type='audio/wav')
 
 if __name__ == "__main__":
     import uvicorn
