@@ -2,6 +2,8 @@
 
 Developed based on [ChatTTS](https://github.com/2noise/ChatTTS/) by [@2noise](https://2noise.com/), web developed by [@Gouryella](https://github.com/Gouryella)
 
+Try It Free at https://chattts.201lab.top
+
 ## Last Update
 1. Update API, add detailed parameter adjustment.
 2. Update webui.
