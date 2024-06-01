@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div style="display: flex; justify-content: center; margin-top: 20px;">
-                <a-button type="primary" style="width: 30%;" @click="generate">{{ language === 'en' ? 'Generate' : '生成' }}</a-button>
+                <a-button type="primary" style="width: 500px;" @click="generate">{{ language === 'en' ? 'Generate' : '生成' }}</a-button>
             </div>
             <br/>
             <br/>
@@ -54,10 +54,10 @@
             </div>
             <div v-if="audioUrl" style="text-align: center;">
                 <p>{{ language === 'en' ? 'Generated Audio' : '生成的音频' }}</p>
-                <audio :src="audioUrl" controls></audio>
+                <div id="waveform" style="height: 100px; margin-top: 20px;display: flex; justify-content: center;"></div>
                 <br/>
                 <a :href="audioUrl" download="generated_audio.wav">
-                    <a-button type="primary" style="margin-top: 10px;">{{ language === 'en' ? 'Download Audio' : '下载音频' }}</a-button>
+                    <a-button type="primary" style="margin-top: 80px;">{{ language === 'en' ? 'Download Audio' : '下载音频' }}</a-button>
                 </a>
             </div>
         </a-layout-content>
@@ -68,9 +68,10 @@
 </template>
 
 <script setup>
-import { ref, h } from 'vue';
+import { ref, h, watch, nextTick } from 'vue';
 import { LoadingOutlined } from '@ant-design/icons-vue';
 import axios from 'axios';
+import WaveSurfer from 'wavesurfer.js';
 
 const text = ref('');
 const voice = ref('man');
@@ -81,6 +82,8 @@ const temperature = ref(0.4)
 const top_p = ref(0.7)
 const top_k = ref(20)
 const voice_adj = ref(2222)
+
+let wavesurfer;
 
 const indicator = h(LoadingOutlined, { style: { fontSize: '50px' } });
 
@@ -121,11 +124,42 @@ const generate = async () => {
         const url = URL.createObjectURL(new Blob([response.data], { type: 'audio/wav' }));
         audioUrl.value = url;
     } catch (error) {
-        console.error('生成音频时出错:', error);
+        console.error(error);
     } finally {
         loading.value = false;
     }
 };
+const initWaveSurfer = (url) => {
+    nextTick(() => {
+        if (wavesurfer) {
+            wavesurfer.destroy();
+        }
+        wavesurfer = WaveSurfer.create({
+            container: '#waveform',
+            waveColor: 'rgb(200, 0, 200)',
+            progressColor: 'rgb(100, 0, 100)',
+            barWidth: 3,
+            barGap: 1,
+            barRadius: 2,
+            minPxPerSec: 2,
+            height: 100,
+            width: 500,
+            mediaControls: true,
+        });
+        wavesurfer.load(url);
+
+        wavesurfer.on('interaction', () => {
+        wavesurfer.play()
+        })
+    });
+};
+
+watch(audioUrl, (newUrl) => {
+    if (newUrl) {
+        initWaveSurfer(newUrl);
+        
+    }
+});
 </script>
 
 <style>
