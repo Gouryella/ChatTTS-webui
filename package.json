@@ -14,7 +14,8 @@
     "axios": "^1.7.2",
     "nuxt": "^3.11.2",
     "vue": "^3.4.27",
-    "vue-router": "^4.3.2"
+    "vue-router": "^4.3.2",
+    "wavesurfer.js": "^7.7.15"
   },
   "devDependencies": {
     "@ant-design-vue/nuxt": "^1.4.1",

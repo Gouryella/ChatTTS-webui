@@ -2,7 +2,7 @@
     <a-layout class="layout">
         <a-layout-header style="background: #FF3C37; display: flex; align-items: center; justify-content: space-between;">
             <div style="display: flex; align-items: center;">
-                <img src="/public/favicon.ico" alt="icon" style="width: 3em; height: 3em; margin-right: 10px;" />
+                <img src="/favicon.ico" alt="icon" style="width: 3em; height: 3em; margin-right: 10px;" />
                 <p style="color: white; font-size: 2em; margin: 0;">ChatTTS WebUI</p>
             </div>
             <a-button type="default" @click="toggleLanguage" style="color: black; border: none;">
