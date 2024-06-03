@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   ],
   app: {
     head: {
-        title: "ChatTTS-WebUI",
+        title: "ChatTTS WebUI",
         meta: [
             { name: "description", content: "Powered by @ Gouryella" },
             { name: "keyword", content: "ChatTTS" }
