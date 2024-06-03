@@ -268,7 +268,6 @@ watch(audioUrl, (newUrl) => {
 
 
 @media (max-width: 600px) {
-
 .ant-layout .ant-layout-header{
     padding-inline:10px;
 }
@@ -299,6 +298,7 @@ watch(audioUrl, (newUrl) => {
 
 .content{
     flex-direction: column;
+    margin-top: 25px;
     }
 
 .slider-group {
