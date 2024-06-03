@@ -28,9 +28,11 @@ npm install
 ```
 ### Step 2
 ```bash
+yes | conda create -n chattts python=3.10
+conda activate chattts
 yes | conda install pytorch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 pytorch-cuda=12.1 -c pytorch -c nvidia
 
-# if you are using Mac Os or do not support CUDA, use
+# If you are using Mac OS or do not support CUDA, use
 pip install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2
 
 pip install -r requirements.txt
@@ -40,7 +42,7 @@ pip install -r requirements.txt
 ### Step 3
 ```bash
 cd api
-git clone https://github.com/2noise/ChatTTS.git
+git clone https://github.com/2noise/ChatTTS.git && cd ChatTTS && git checkout a0a1a9f && cd ..
 git clone https://huggingface.co/2Noise/ChatTTS.git models
 cd ..
 ```
