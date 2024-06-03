@@ -4,6 +4,17 @@ Developed based on [ChatTTS](https://github.com/2noise/ChatTTS/) by [@2noise](ht
 
 Try It Free at https://chattts.201lab.top
 
+<table>
+  <tr>
+    <td align="center">Web UI</td>
+    <td align="center">Mobile UI</td>
+  </tr>
+  <tr>
+    <td><img src="img/web.png" alt="Web UI" width="400"></td>
+    <td><img src="img/mobile.png" alt="Mobile UI" width="400"></td>
+  </tr>
+</table>
+
 ## Last Update
 1. Update API, add detailed parameter adjustment.
 2. Update webui.
