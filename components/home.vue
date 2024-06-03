@@ -13,7 +13,7 @@
         </a-layout-header>
         <a-layout-content>
             <div class="content" >
-                <a-textarea class="textarea" v-model:value="text" :rows="5" :placeholder="language === 'en' ? 'Input text...' : '输入文字...'" />
+                <a-textarea class="textarea" v-model:value="text" :rows="5" :placeholder="language === 'en' ? 'Input text...' : '输入文字...'" ref="textareaRef"/>
                 <div class="setting">
                     <div class="button-group">
                         <div class="function-button">
@@ -99,13 +99,33 @@ const toggleLanguage = () => {
     language.value = language.value === 'en' ? 'zh' : 'en';
 };
 
+const textareaRef = ref(null);
+
+const insertText = (insertedText) => {
+    const dom = textareaRef.value?.resizableTextArea?.textarea || textareaRef.value?.resizableTextArea?.textArea;
+    if (!dom) return;
+    const index = dom.selectionStart;
+    const content = text.value;
+
+    text.value = content.substring(0, index) + insertedText + content.substring(index, content.length);
+
+
+    nextTick(() => {
+        dom.focus();
+        dom.setSelectionRange(index + insertedText.length, index + insertedText.length);
+    });
+};
+
+
 const addLaugh = () => {
-    text.value += '[laugh]';
+  insertText('[laugh]');
 };
 
 const addBreak = () => {
-    text.value += '[uv_break]';
+  insertText('[uv_break]');
 };
+
+
 const setVoiceAdj = (value) => {
     voice_adj.value = value;
 };
