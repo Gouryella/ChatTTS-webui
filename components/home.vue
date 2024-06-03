@@ -1,50 +1,56 @@
 <template>
     <a-layout class="layout">
-        <a-layout-header style="background: #FF3C37; display: flex; align-items: center; justify-content: space-between;">
-            <div style="display: flex; align-items: center;">
-                <img src="/favicon.ico" alt="icon" style="width: 3em; height: 3em; margin-right: 10px;" />
-                <p style="color: white; font-size: 2em; margin: 0;">ChatTTS WebUI</p>
-            </div>
+        <a-layout-header class="layout-nav" style="background: #FF3C37;">
+            <a href="https://github.com/Gouryella/ChatTTS-webui" style="color: inherit; text-decoration: none;">
+                <div class="logo">
+                    <img class="ico" src="/favicon.ico" alt="icon" />
+                    <p class="nav-text">ChatTTS WebUI</p>
+                </div>
+            </a>
             <a-button type="default" @click="toggleLanguage" style="color: black; border: none;">
                 {{ language === 'en' ? '切换到中文' : 'Switch to English' }}
             </a-button>
         </a-layout-header>
-        <a-layout-content style="padding: 20px 50px;">
-            <div style="display: flex; align-items: center; width: 100%; justify-content: center;">
-                <a-textarea v-model:value="text" :rows="5" :placeholder="language === 'en' ? 'Input text...' : '输入文字...'" style="width: 30%; min-width: 300px;border-radius: 7px; font-size: 27px" />
-                <div style="display: flex; flex-direction: column; margin-left: 10px;">
-                    <div style="display: flex; margin-bottom: 10px;">
-                        <a-button type="primary" style="margin-right: 10px;width: 100px;" @click="addLaugh">{{ language === 'en' ? 'Add Laugh' : '加笑声' }}</a-button>
-                        <a-button type="primary" style="width: 100px;" @click="addBreak">{{ language === 'en' ? 'Add Break' : '加停顿' }}</a-button>
-                        <a-radio-group v-model:value="voice" style="display: flex; margin-left: 10px;">
+        <a-layout-content>
+            <div class="content" >
+                <a-textarea class="textarea" v-model:value="text" :rows="5" :placeholder="language === 'en' ? 'Input text...' : '输入文字...'" />
+                <div class="setting">
+                    <div class="button-group">
+                        <div class="function-button">
+                            <a-button style="margin-right: 10px;width: 100px;" type="primary" @click="addLaugh">{{ language === 'en' ? 'Add Laugh' : '加笑声' }}</a-button>
+                            <a-button style="width: 100px;" type="primary" @click="addBreak">{{ language === 'en' ? 'Add Break' : '加停顿' }}</a-button>
+                        </div>
+                        <a-radio-group class="voice_adj-button" v-model:value="voice" >
                             <a-radio-button :value="voice_adj === 2222 ? 'man' : null" value="man" style="width: 120px; text-align: center;" @click="setVoiceAdj(2222)">{{ language === 'en' ? 'Male Voice' : '男声' }}</a-radio-button>
                             <a-radio-button :value="voice_adj === 6615 ? 'woman' : null" value="woman" style="width: 120px; text-align: center;" @click="setVoiceAdj(6615)">{{ language === 'en' ? 'Female Voice' : '女声' }}</a-radio-button>
                         </a-radio-group>
                     </div>
-                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                        <span style="margin-right: 10px;">{{ language === 'en' ? 'Voice Adjustment' : '声音调节' }}</span>
-                        <a-slider v-model:value="voice_adj" :min="0" :max="10000" :step="1" style="flex: 1;" />
-                        <a-input-number v-model:value="voice_adj" :min="0" :max="10000" :step="1" style="margin-left: 16px" />
-                    </div>
-                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                        <span style="margin-right: 10px;">Temperature</span>
-                        <a-slider v-model:value="temperature" :min="0" :max="1" :step="0.1" style="flex: 1;" />
-                        <a-input-number v-model:value="temperature" :min="0" :max="1" :step="0.1" style="margin-left: 16px" />
-                    </div>
-                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                        <span style="margin-right: 10px;">Top P</span>
-                        <a-slider v-model:value="top_p" :min="0" :max="1" :step="0.1" style="flex: 1;" />
-                        <a-input-number v-model:value="top_p" :min="0" :max="1" :step="0.1" style="margin-left: 16px" />
-                    </div>
-                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                        <span style="margin-right: 10px;">Top K</span>
-                        <a-slider v-model:value="top_k" :min="1" :max="100" :step="1" style="flex: 1;" />
-                        <a-input-number v-model:value="top_k" :min="1" :max="100" :step="1" style="margin-left: 16px" />
+                    <div class="slider-group">
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <span style="margin-right: 10px;">{{language === 'en' ? 'Voice Adjustment' : '声音调节' }}</span>
+                            <a-slider v-model:value="voice_adj" :min="0" :max="10000" :step="1" style="flex: 1;" />
+                            <a-input-number v-model:value="voice_adj" :min="0" :max="10000" :step="1" style="margin-left: 16px" />
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <span style="margin-right: 10px;">Temperature</span>
+                            <a-slider v-model:value="temperature" :min="0" :max="1" :step="0.1" style="flex: 1;" />
+                            <a-input-number v-model:value="temperature" :min="0" :max="1" :step="0.1" style="margin-left: 16px" />
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <span style="margin-right: 10px;">Top P</span>
+                            <a-slider v-model:value="top_p" :min="0" :max="1" :step="0.1" style="flex: 1;" />
+                            <a-input-number v-model:value="top_p" :min="0" :max="1" :step="0.1" style="margin-left: 16px" />
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <span style="margin-right: 10px;">Top K</span>
+                            <a-slider v-model:value="top_k" :min="1" :max="100" :step="1" style="flex: 1;" />
+                            <a-input-number v-model:value="top_k" :min="1" :max="100" :step="1" style="margin-left: 16px" />
+                        </div>
                     </div>
                 </div>
             </div>
             <div style="display: flex; justify-content: center; margin-top: 20px;">
-                <a-button type="primary" style="width: 500px;" @click="generate">{{ language === 'en' ? 'Generate' : '生成' }}</a-button>
+                <a-button class="generate-button" type="primary" @click="generate">{{ language === 'en' ? 'Generate' : '生成' }}</a-button>
             </div>
             <br/>
             <br/>
@@ -54,10 +60,12 @@
             </div>
             <div v-if="audioUrl" style="text-align: center;">
                 <p>{{ language === 'en' ? 'Generated Audio' : '生成的音频' }}</p>
-                <div id="waveform" style="height: 100px; margin-top: 20px;display: flex; justify-content: center;"></div>
+                <div class="waveform-container">
+                    <div id="waveform"></div>
+                </div>
                 <br/>
-                <a :href="audioUrl" download="generated_audio.wav">
-                    <a-button type="primary" style="margin-top: 80px;">{{ language === 'en' ? 'Download Audio' : '下载音频' }}</a-button>
+                <a :href="audioUrl" download="generated_audio_by_201lab.wav">
+                    <a-button class="download-button" type="primary">{{ language === 'en' ? 'Download Audio' : '下载音频' }}</a-button>
                 </a>
             </div>
         </a-layout-content>
@@ -143,7 +151,6 @@ const initWaveSurfer = (url) => {
             barRadius: 2,
             minPxPerSec: 2,
             height: 100,
-            width: 500,
             mediaControls: true,
         });
         wavesurfer.load(url);
@@ -168,4 +175,141 @@ watch(audioUrl, (newUrl) => {
     width: 100%;
 }
 
+.ant-layout .ant-layout-content{
+    padding: 20px 50px;
+}
+
+.layout-nav{
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+}
+
+#waveform {
+    width: 500px;
+}
+
+.logo{
+    display: flex; 
+    align-items: center;
+}
+
+.ico{
+    width: 3em; 
+    height: 3em; 
+    margin-right: 10px;
+}
+
+.nav-text{
+    color: white; 
+    font-size: 2em; 
+    margin: 0;
+}
+
+.nav-ad{
+    color: white; 
+    font-size: large; 
+    position: absolute; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    margin: 0;
+}
+
+.content{
+    display: flex; 
+    align-items: center; 
+    width: 100%; 
+    justify-content: center;
+}
+
+.voice_adj-button{
+    display: flex; 
+    margin-left: 10px;
+}
+
+.button-group{
+    display: flex; 
+    margin-bottom: 10px;
+}
+
+
+.setting{
+    display: flex; 
+    flex-direction: column; 
+    margin-left: 10px;
+}
+
+.textarea{
+    width: 30%; 
+    min-width: 300px;
+    border-radius: 7px; 
+    font-size: 27px;
+}
+
+.slider-group {
+    width: auto;
+}
+
+.generate-button{
+    width: 500px;
+}
+
+.waveform-container{
+    height: 100px; 
+    margin-top: 20px;
+    display: flex; 
+    justify-content: center; 
+}
+
+.download-button{
+    margin-top: 80px;
+}
+
+
+
+@media (max-width: 600px) {
+
+.ant-layout .ant-layout-header{
+    padding-inline:10px;
+}
+
+.ant-layout .ant-layout-content{
+    padding: 0;
+}
+.nav-text{
+    font-size: 1.5em; 
+    white-space: normal;
+}
+.nav-ad {
+    display: none;
+}
+.button-group{
+    flex-direction: column;
+}
+
+.function-button{
+    display: flex;
+    margin-top: 20px;
+    justify-content:center;
+}
+
+.voice_adj-button {
+    margin: 10px auto 0 auto;
+}
+
+.content{
+    flex-direction: column;
+    }
+
+.slider-group {
+    width: 95vw;
+}
+
+.generate-button{
+    width: 300px;
+}
+#waveform {
+    width: 100vw;
+}
+}
 </style>
