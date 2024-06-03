@@ -90,6 +90,7 @@ const temperature = ref(0.4)
 const top_p = ref(0.7)
 const top_k = ref(20)
 const voice_adj = ref(2222)
+const textareaRef = ref(null);
 
 let wavesurfer;
 
@@ -99,7 +100,7 @@ const toggleLanguage = () => {
     language.value = language.value === 'en' ? 'zh' : 'en';
 };
 
-const textareaRef = ref(null);
+
 
 const insertText = (insertedText) => {
     const dom = textareaRef.value?.resizableTextArea?.textarea || textareaRef.value?.resizableTextArea?.textArea;

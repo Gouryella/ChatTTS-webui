@@ -12,8 +12,6 @@ RUN apt-get update && \
 WORKDIR /app/ChatTTS-webui
 
 RUN npm install -g yarn && yarn install && \
-    git clone https://github.com/2noise/ChatTTS.git api/ChatTTS && \
-    cd api/ChatTTS && git checkout a0a1a9f && cd ../.. && \
     git clone https://huggingface.co/2Noise/ChatTTS.git api/models && \
     pip install --no-cache-dir -r requirements.txt
 

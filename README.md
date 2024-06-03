@@ -42,7 +42,6 @@ pip install -r requirements.txt
 ### Step 3
 ```bash
 cd api
-git clone https://github.com/2noise/ChatTTS.git && cd ChatTTS && git checkout a0a1a9f && cd ..
 git clone https://huggingface.co/2Noise/ChatTTS.git models
 cd ..
 ```
