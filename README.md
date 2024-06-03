@@ -7,6 +7,7 @@ Try It Free at https://chattts.201lab.top
 ## Last Update
 1. Update API, add detailed parameter adjustment.
 2. Update webui.
+3. Update mobile view
 ## How to use
 ### Step 1
 ```bash
@@ -17,8 +18,13 @@ npm install
 ### Step 2
 ```bash
 yes | conda install pytorch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 pytorch-cuda=12.1 -c pytorch -c nvidia
+
+# if you are using Mac Os or do not support CUDA, use
+pip install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2
+
 pip install -r requirements.txt
 ```
+
 
 ### Step 3
 ```bash
