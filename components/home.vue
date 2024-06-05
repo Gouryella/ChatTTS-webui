@@ -80,6 +80,7 @@ import { ref, h, watch, nextTick } from 'vue';
 import { LoadingOutlined } from '@ant-design/icons-vue';
 import axios from 'axios';
 import WaveSurfer from 'wavesurfer.js';
+import { message } from 'ant-design-vue';
 
 const text = ref('');
 const voice = ref('man');
@@ -131,6 +132,14 @@ const setVoiceAdj = (value) => {
     voice_adj.value = value;
 };
 const generate = async () => {
+    if (!text.value || text.value === '0') {
+        if (language.value === 'zh') {
+            message.error('输入文本不能为空');
+        } else {
+            message.error('Input text cannot be empty');
+        }
+        return;
+    }
     loading.value = true;
     audioUrl.value = false;
     try {
