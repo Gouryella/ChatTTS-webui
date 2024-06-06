@@ -52,9 +52,9 @@
                             <span>{{language === 'en' ? 'Oral' : '口语' }}</span>
                             <a-input-number class="setting-input" v-model:value="oral" :min="0" :max="9" :step="1" />
                             <span>{{language === 'en' ? 'Laugh' : '笑声' }}</span>
-                            <a-input-number class="setting-input" v-model:value="laugh" :min="0" :max="9" :step="1" />
+                            <a-input-number class="setting-input" v-model:value="laugh" :min="0" :max="2" :step="1" />
                             <span>{{language === 'en' ? 'Break' : '停顿' }}</span>
-                            <a-input-number class="setting-input" v-model:value="break_value" :min="0" :max="9" :step="1" />
+                            <a-input-number class="setting-input" v-model:value="break_value" :min="0" :max="7" :step="1" />
                         </div>
                     </div>
                 </div>
