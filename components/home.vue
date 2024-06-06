@@ -13,7 +13,7 @@
         </a-layout-header>
         <a-layout-content>
             <div class="content" >
-                <a-textarea class="textarea" v-model:value="text" :rows="5" :placeholder="language === 'en' ? 'Input text...' : '输入文字...'" ref="textareaRef"/>
+                <a-textarea class="textarea" v-model:value="text" :rows="6" :placeholder="language === 'en' ? 'Input text...' : '输入文字...'" ref="textareaRef"/>
                 <div class="setting">
                     <div class="button-group">
                         <div class="function-button">
@@ -33,18 +33,28 @@
                         </div>
                         <div style="display: flex; align-items: center; margin-bottom: 10px;">
                             <span style="margin-right: 10px;">Temperature</span>
-                            <a-slider v-model:value="temperature" :min="0" :max="1" :step="0.1" style="flex: 1;" />
-                            <a-input-number v-model:value="temperature" :min="0" :max="1" :step="0.1" style="margin-left: 16px" />
+                            <a-slider v-model:value="temperature" :min="0.1" :max="1" :step="0.1" style="flex: 1;" />
+                            <a-input-number v-model:value="temperature" :min="0.1" :max="1" :step="0.1" style="margin-left: 16px" />
                         </div>
                         <div style="display: flex; align-items: center; margin-bottom: 10px;">
                             <span style="margin-right: 10px;">Top P</span>
-                            <a-slider v-model:value="top_p" :min="0" :max="1" :step="0.1" style="flex: 1;" />
-                            <a-input-number v-model:value="top_p" :min="0" :max="1" :step="0.1" style="margin-left: 16px" />
+                            <a-slider v-model:value="top_p" :min="0.1" :max="1" :step="0.1" style="flex: 1;" />
+                            <a-input-number v-model:value="top_p" :min="0.1" :max="1" :step="0.1" style="margin-left: 16px" />
                         </div>
                         <div style="display: flex; align-items: center; margin-bottom: 10px;">
                             <span style="margin-right: 10px;">Top K</span>
                             <a-slider v-model:value="top_k" :min="1" :max="100" :step="1" style="flex: 1;" />
                             <a-input-number v-model:value="top_k" :min="1" :max="100" :step="1" style="margin-left: 16px" />
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 10px; justify-content: space-between;">
+                            <span>{{language === 'en' ? 'Speed' : '语速' }}</span>
+                            <a-input-number class="setting-input" v-model:value="speed" :min="0" :max="9" :step="1" />
+                            <span>{{language === 'en' ? 'Oral' : '口语' }}</span>
+                            <a-input-number class="setting-input" v-model:value="oral" :min="0" :max="9" :step="1" />
+                            <span>{{language === 'en' ? 'Laugh' : '笑声' }}</span>
+                            <a-input-number class="setting-input" v-model:value="laugh" :min="0" :max="9" :step="1" />
+                            <span>{{language === 'en' ? 'Break' : '停顿' }}</span>
+                            <a-input-number class="setting-input" v-model:value="break_value" :min="0" :max="9" :step="1" />
                         </div>
                     </div>
                 </div>
@@ -90,6 +100,10 @@ const language = ref('en');
 const temperature = ref(0.4)
 const top_p = ref(0.7)
 const top_k = ref(20)
+const speed = ref(3)
+const oral = ref(2)
+const laugh = ref(0)
+const break_value = ref(4)
 const voice_adj = ref(2222)
 const textareaRef = ref(null);
 
@@ -150,7 +164,11 @@ const generate = async () => {
                 voice_adj: voice_adj.value,
                 temperature: temperature.value,
                 top_p: top_p.value,
-                top_k: top_k.value
+                top_k: top_k.value,
+                speed: speed.value,
+                oral: oral.value,
+                laugh: laugh.value,
+                break_value: break_value.value,
             },
             {
                 headers: {
@@ -282,6 +300,7 @@ watch(audioUrl, (newUrl) => {
 
 .generate-button{
     width: 500px;
+    margin-top: 10px;
 }
 
 .waveform-container{
@@ -337,6 +356,7 @@ watch(audioUrl, (newUrl) => {
 
 .generate-button{
     width: 300px;
+    margin-top: 0;
 }
 #waveform {
     width: 100vw;

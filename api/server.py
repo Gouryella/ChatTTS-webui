@@ -30,7 +30,11 @@ class Text2Speech(BaseModel):
     voice_adj: int
     temperature: float
     top_p: float
-    top_k: int 
+    top_k: int
+    speed: int
+    oral: int
+    laugh: int
+    break_value: int
 
 model_path = os.path.join(os.path.dirname(__file__), 'models')
 model_files = [
@@ -61,9 +65,10 @@ async def generate_text(request: Text2Speech):
         'temperature': request.temperature,
         'top_P': request.top_p,
         'top_K': request.top_k,
+        'prompt':f'[speed_{request.speed}]',
         }
-
-    wavs = await asyncio.to_thread(chat.infer, text, use_decoder=True, params_infer_code=params_infer_code)
+    params_refine_text = {'prompt':f'[oral_{request.oral}][laugh_{request.laugh}][break_{request.break_value}]'}
+    wavs = await asyncio.to_thread(chat.infer, text, use_decoder=True, params_infer_code=params_infer_code, params_refine_text=params_refine_text)
     audio_data = np.array(wavs[0])
     if audio_data.ndim == 1:
         audio_data = np.expand_dims(audio_data, axis=0)
